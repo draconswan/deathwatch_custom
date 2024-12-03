@@ -632,6 +632,7 @@ button.hit-button {
 button.damage-button {
     background-color: #DDDDDD !important;
 }
+
 /* ROLL TEMPLATE STYLE CUSTOM based on "better default template"*/
 /* margin reduction to better fit the chat window */
 .sheet-rolltemplate-custom {

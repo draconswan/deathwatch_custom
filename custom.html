@@ -82,13 +82,18 @@
         <!-- Initiative -->
         <div class="sheet-2colrow">
           <div class="sheet-col">
-            <button name="roll_Init" type="roll" value="/me Initiative [[floor(@{Agility}/10) + @{combatsense} + 1d10]]"
+            <button name="roll_Init" type="roll"
+                    value="/me Initiative [[floor(@{Agility}/10) + @{combatsense} +@{initbonus} + 1d10]]"
                     class="ui-draggable"><label>Initiative</label></button>
           </div>
           <div class="sheet-col">
             <label>
               <input name="attr_combatsense" type="checkbox" value="floor(@{Perception}/10) - floor(@{Agility}/10)">
               Combat Sense
+            </label>
+            <label>
+              Other Init Bonus:
+              <input name="attr_initbonus" type="text" value="0" style="width: 50%">
             </label>
           </div>
         </div>
@@ -248,15 +253,15 @@
                     <div class="sheet-item">
                       <label>
                         <input name="attr_defensiveattack" type="checkbox" value="-10">
-                        Defensive
+                        Defensive (A)
                       </label>
                     </div>
                   </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_deflagrate" type="checkbox" value="1">
-                        Deflagrate
+                        <input name="attr_defensiveparry" type="checkbox" value="15">
+                        Defensive (P)
                       </label>
                     </div>
                   </div>
@@ -268,6 +273,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_deflagrate" type="checkbox" value="1">
+                        Deflagrate
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -284,14 +297,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_primitive" type="checkbox" value="1">
-                        Primitive
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -300,6 +305,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_primitive" type="checkbox" value="1">
+                        Primitive
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -317,14 +330,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_sanctified" type="checkbox" value="1">
-                        Sanctified
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -332,6 +337,14 @@
               <div class="sheet-item" style="width:15%">
               </div>
               <div class="sheet-item" style="width:85%">
+                <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                  <div class="sheet-item">
+                    <label>
+                      <input name="attr_sanctified" type="checkbox" value="1">
+                      Sanctified
+                    </label>
+                  </div>
+                </div>
                 <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                   <div class="sheet-item">
                     <label>
@@ -343,18 +356,22 @@
                 <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                   <div class="sheet-item">
                     <label>
-                      <input name="attr_unbalanced" type="checkbox" value="1">
+                      <input name="attr_unbalanced" type="checkbox" value="-10">
                       Unbalanced
                     </label>
                   </div>
                 </div>
-                <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                  <div class="sheet-item">
-                    <label>
-                      <input name="attr_unwieldy" type="checkbox" value="1">
-                      Unwieldy
-                    </label>
-                  </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                <div class="sheet-item">
+                  <label>
+                    <input name="attr_unwieldy" type="checkbox" value="1">
+                    Unwieldy
+                  </label>
                 </div>
               </div>
             </div>
@@ -391,8 +408,40 @@
             </div>
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
+                <select name="attr_meleeaimbonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Aim Bonus</option>
+                  <option value="0">No Aim (+0)</option>
+                  <option value="10">Half Aim (+10)</option>
+                  <option value="20">Full Aim (+20)</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <select name="attr_meleeactionbonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Combat Action</option>
+                  <option value="0" selected>Standard A. (+0)</option>
+                  <option value="10">Charge! (+10)</option>
+                  <option value="20">All Out A. (+20)</option>
+                  <option value="-10">Guarded A. (-10)</option>
+                  <option value="-20">Called Shot (-20)</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <button name="roll_parry" type="roll" class="hit-button"
+                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{balanced} + @{defensiveparry} + @{unbalanced} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }}">
+                  <label>Parry</label>
+                </button>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <button name="roll_powerparry" type="roll" class="hit-button"
+                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{balanced} + @{defensiveparry} + @{unbalanced} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }} {{d100h=[[1d100cf<25cs>26]] }}">
+                  <label>Power Parry</label>
+                </button>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:25%">
                 <button name="roll_meleehit" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} shoots with @{meleeweaponname}**}} {{dosdof=[[(((  ([[(@{WeaponSkill} + ?{Modifier|0} + @{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
+                        value="&{template:custom} {{name=**@{character_name} attacks with @{meleeweaponname}**}} {{dosdof=[[(((  ([[(@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{meleeaimbonus} + @{meleeactionbonus} + @{defensiveattack} + ?{Modifier|0} + @{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
                   <label>Hit</label>
                 </button>
               </div>
@@ -419,7 +468,8 @@
                 </button>
               </div>
               <div class="sheet-item" style="width:25%">
-                <button name="roll_MeleeTearing" type="roll" class="damage-button" title="Rolls Weapon Damage&#10;&#10;Used by Weapons with the Tearing quality"
+                <button name="roll_MeleeTearing" type="roll" class="damage-button"
+                        title="Rolls Weapon Damage&#10;&#10;Used by Weapons with the Tearing quality"
                         value="&{template:custom} {{name=**@{character_name}'s @{meleeweaponname} deals**}} {{d1= ?{Hits
                         |1,[[{@{meleeweapondamage}+1d10&amp;#125;d1]]
                         |2,[[{@{meleeweapondamage}+1d10&amp;#125;d1]] [[{@{meleeweapondamage}+1d10&amp;#125;d1]]
@@ -619,36 +669,12 @@
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_aim" type="checkbox" value="10">
-                        Aim
-                      </label>
-                    </div>
-                  </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_accurate" type="checkbox" value="10">
-                        Accurate
-                      </label>
-                    </div>
-                  </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
                         <input name="attr_blast" type="checkbox" value="1">
                         Blast
                         <input name="attr_blastval" type="text" style="width:12%" value="1">
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-item" style="width:85%">
-                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -665,6 +691,14 @@
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-item" style="width:85%">
+                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -674,14 +708,6 @@
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-item" style="width:85%">
-                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -699,14 +725,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_gyro" type="checkbox" value="1">
-                        Gyro
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -715,6 +733,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_gyro" type="checkbox" value="1">
+                        Gyro
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -732,14 +758,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_penetrating" type="checkbox" value="1">
-                        Penetrating
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -748,6 +766,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_penetrating" type="checkbox" value="1">
+                        Penetrating
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -764,6 +790,14 @@
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-item" style="width:85%">
+                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -773,14 +807,6 @@
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-item" style="width:85%">
-                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -797,14 +823,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_sanctified" type="checkbox" value="1">
-                        Sanctified
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -813,6 +831,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_sanctified" type="checkbox" value="1">
+                        Sanctified
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -829,14 +855,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_smoke" type="checkbox" value="1">
-                        Smoke
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -845,6 +863,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_smoke" type="checkbox" value="1">
+                        Smoke
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -861,11 +887,35 @@
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-item" style="width:85%">
+                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
                         <input name="attr_tearing" type="checkbox" value="1">
                         Tearing
+                      </label>
+                    </div>
+                  </div>
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_toxic" type="checkbox" value="1">
+                        Toxic
+                      </label>
+                    </div>
+                  </div>
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_twinlinked" type="checkbox" value="20">
+                        Twin-linked
                       </label>
                     </div>
                   </div>
@@ -876,22 +926,6 @@
               <div class="sheet-item" style="width:15%">
               </div>
               <div class="sheet-item" style="width:85%">
-                <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                  <div class="sheet-item">
-                    <label>
-                      <input name="attr_toxic" type="checkbox" value="1">
-                      Toxic
-                    </label>
-                  </div>
-                </div>
-                <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                  <div class="sheet-item">
-                    <label>
-                      <input name="attr_twinlinked" type="checkbox" value="20">
-                      Twin-linked
-                    </label>
-                  </div>
-                </div>
                 <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                   <div class="sheet-item">
                     <label>
@@ -935,8 +969,57 @@
             </div>
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
+                <select name="attr_gunaimbonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Aim Bonus</option>
+                  <option value="0" selected>No Aim (+0)</option>
+                  <option value="10">Half Aim (+10)</option>
+                  <option value="20">Full Aim (+20)</option>
+                  <option value="20">Accurate Half (+20)</option>
+                  <option value="30">Accurate Full (+30)</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <select name="attr_gunrangebonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Range Mod</option>
+                  <option value="30">P.Blank (+30)</option>
+                  <option value="10">Short (+10)</option>
+                  <option value="0" selected>Normal (+0)</option>
+                  <option value="-10">Long (-10)</option>
+                  <option value="-30">Extreme (-30)</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <select name="attr_gunactionbonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Combat Action Mod</option>
+                  <option value="0" selected>Single Shot (+0)</option>
+                  <option value="10">Semi Auto (+10)</option>
+                  <option value="20">Full Auto (+20)</option>
+                  <option value="-20">Called Shot (-20)</option>
+                  <option value="-20">Suppressing (-20)</option>
+                  <option disabled style="background:gray;font-weight:bold;color:white">Run and Gun</option>
+                  <option value="0">Semi Auto (+0)</option>
+                  <option value="-10">Full Auto (-10)</option>
+                  <option disabled style="background:gray;font-weight:bold;color:white">Permits half-move after attack&nbsp;</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <select name="attr_gundice">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Reliability</option>
+                  <option value="1d100cs1cf>96" selected>Single/Called Shot (96+)</option>
+                  <option value="1d100cs1cf>94">Semi/Full Auto (94+)</option>
+                  <option value="1d100cs1cf>91">Overheats (91+)</option>
+                  <option value="1d100cs1cf>91">Unreliable (91+)</option>
+                  <option value="1d100cs1cf100">Best Craft (No Jam)</option>
+                  <option disabled style="background:gray;font-weight:bold;color:white">Reliable rolls 1d10 on
+                    jam&nbsp;
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:25%">
                 <button name="roll_rangedhit" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} shoots with @{rangedweaponname}**}} {{dosdof=[[(((  ([[(@{BallisticSkill} + @{aim} + @{accurate} + ?{Modifier|0} + @{advanceBS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
+                        value="&{template:custom} {{name=**@{character_name} shoots with @{rangedweaponname}**}} {{dosdof=[[(((  ([[(@{BallisticSkill} + @{gunaimbonus} + @{gunrangebonus} + @{gunactionbonus} + ?{Modifier|0} + @{advanceBS})]] - [[@{gundice}]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
                   <label>Hit</label>
                 </button>
               </div>
@@ -949,32 +1032,33 @@
               <div class="sheet-item" style="width:25%">
                 <button name="roll_RangedDamage" type="roll" class="damage-button" title="Rolls Weapon Damage"
                         value="&{template:custom} {{name=**@{character_name}'s @{rangedweaponname} deals**}} {{d1=?{Hits
-                        |1,[[@{rangedweapondamage}]]
-                        |2,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |3,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |4,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |5,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |6,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |7,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |8,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |9,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |10,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]}}} {{t1=**@{Rangedweapontype} Damage!** }} {{p1=**Pen** [[@{Rangedweaponpen}]] **vs AP**}}">
+                        |1,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |2,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |3,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |4,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |5,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |6,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |7,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |8,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |9,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |10,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]}}} {{t1=**@{Rangedweapontype} Damage!** }} {{p1=**Pen** [[@{Rangedweaponpen}]] **vs AP**}}">
                   <label>Damage</label>
                 </button>
               </div>
               <div class="sheet-item" style="width:25%">
-                <button name="roll_RangedTearing" type="roll" class="damage-button" title="Rolls Weapon Damage&#10;&#10;Used by Weapons with the Tearing quality"
+                <button name="roll_RangedTearing" type="roll" class="damage-button"
+                        title="Rolls Weapon Damage&#10;&#10;Used by Weapons with the Tearing quality"
                         value="&{template:custom} {{name=**@{character_name}'s @{rangedweaponname} deals**}} {{d1= ?{Hits
-                        |1,[[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |2,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |3,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |4,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |5,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |6,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |7,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |8,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |9,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |10,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]} }} {{t1=**Tearing @{Rangedweapontype} Damage!**}} {{p1=**Pen** [[@{Rangedweaponpen}]] **vs AP**}}">
+                        |1,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |2,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |3,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |4,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |5,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |6,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |7,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |8,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |9,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |10,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]} }} {{t1=**Tearing @{Rangedweapontype} Damage!**}} {{p1=**Pen** [[@{Rangedweaponpen}]] **vs AP**}}">
                   <label>Tearing</label></button>
               </div>
             </div>
@@ -7112,15 +7196,15 @@
                     <div class="sheet-item">
                       <label>
                         <input name="attr_defensiveattack" type="checkbox" value="-10">
-                        Defensive
+                        Defensive (A)
                       </label>
                     </div>
                   </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_deflagrate" type="checkbox" value="1">
-                        Deflagrate
+                        <input name="attr_defensiveparry" type="checkbox" value="15">
+                        Defensive (P)
                       </label>
                     </div>
                   </div>
@@ -7132,6 +7216,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_deflagrate" type="checkbox" value="1">
+                        Deflagrate
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7148,14 +7240,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_primitive" type="checkbox" value="1">
-                        Primitive
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -7164,6 +7248,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_primitive" type="checkbox" value="1">
+                        Primitive
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7181,14 +7273,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_sanctified" type="checkbox" value="1">
-                        Sanctified
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -7196,6 +7280,14 @@
               <div class="sheet-item" style="width:15%">
               </div>
               <div class="sheet-item" style="width:85%">
+                <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                  <div class="sheet-item">
+                    <label>
+                      <input name="attr_sanctified" type="checkbox" value="1">
+                      Sanctified
+                    </label>
+                  </div>
+                </div>
                 <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                   <div class="sheet-item">
                     <label>
@@ -7207,18 +7299,22 @@
                 <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                   <div class="sheet-item">
                     <label>
-                      <input name="attr_unbalanced" type="checkbox" value="1">
+                      <input name="attr_unbalanced" type="checkbox" value="-10">
                       Unbalanced
                     </label>
                   </div>
                 </div>
-                <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                  <div class="sheet-item">
-                    <label>
-                      <input name="attr_unwieldy" type="checkbox" value="1">
-                      Unwieldy
-                    </label>
-                  </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                <div class="sheet-item">
+                  <label>
+                    <input name="attr_unwieldy" type="checkbox" value="1">
+                    Unwieldy
+                  </label>
                 </div>
               </div>
             </div>
@@ -7255,8 +7351,40 @@
             </div>
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
+                <select name="attr_meleeaimbonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Aim Bonus</option>
+                  <option value="0">No Aim (+0)</option>
+                  <option value="10">Half Aim (+10)</option>
+                  <option value="20">Full Aim (+20)</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <select name="attr_meleeactionbonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Combat Action</option>
+                  <option value="0" selected>Standard A. (+0)</option>
+                  <option value="10">Charge! (+10)</option>
+                  <option value="20">All Out A. (+20)</option>
+                  <option value="-10">Guarded A. (-10)</option>
+                  <option value="-20">Called Shot (-20)</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <button name="roll_parry" type="roll" class="hit-button"
+                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{balanced} + @{defensiveparry} + @{unbalanced} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }}">
+                  <label>Parry</label>
+                </button>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <button name="roll_powerparry" type="roll" class="hit-button"
+                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{balanced} + @{defensiveparry} + @{unbalanced} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }} {{d100h=[[1d100cf<25cs>26]] }}">
+                  <label>Power Parry</label>
+                </button>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:25%">
                 <button name="roll_meleehit" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} shoots with @{meleeweaponname}**}} {{dosdof=[[(((  ([[(@{WeaponSkill} + ?{Modifier|0} + @{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
+                        value="&{template:custom} {{name=**@{character_name} attacks with @{meleeweaponname}**}} {{dosdof=[[(((  ([[(@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{meleeaimbonus} + @{meleeactionbonus} + @{defensiveattack} + ?{Modifier|0} + @{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
                   <label>Hit</label>
                 </button>
               </div>
@@ -7283,7 +7411,8 @@
                 </button>
               </div>
               <div class="sheet-item" style="width:25%">
-                <button name="roll_MeleeTearing" type="roll" class="damage-button" title="Rolls Weapon Damage&#10;&#10;Used by Weapons with the Tearing quality"
+                <button name="roll_MeleeTearing" type="roll" class="damage-button"
+                        title="Rolls Weapon Damage&#10;&#10;Used by Weapons with the Tearing quality"
                         value="&{template:custom} {{name=**@{character_name}'s @{meleeweaponname} deals**}} {{d1= ?{Hits
                         |1,[[{@{meleeweapondamage}+1d10&amp;#125;d1]]
                         |2,[[{@{meleeweapondamage}+1d10&amp;#125;d1]] [[{@{meleeweapondamage}+1d10&amp;#125;d1]]
@@ -7440,36 +7569,12 @@
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_aim" type="checkbox" value="10">
-                        Aim
-                      </label>
-                    </div>
-                  </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_accurate" type="checkbox" value="10">
-                        Accurate
-                      </label>
-                    </div>
-                  </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
                         <input name="attr_blast" type="checkbox" value="1">
                         Blast
                         <input name="attr_blastval" type="text" style="width:12%" value="1">
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-item" style="width:85%">
-                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7486,6 +7591,14 @@
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-item" style="width:85%">
+                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7495,14 +7608,6 @@
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-item" style="width:85%">
-                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7520,14 +7625,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_gyro" type="checkbox" value="1">
-                        Gyro
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -7536,6 +7633,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_gyro" type="checkbox" value="1">
+                        Gyro
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7553,14 +7658,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_penetrating" type="checkbox" value="1">
-                        Penetrating
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -7569,6 +7666,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_penetrating" type="checkbox" value="1">
+                        Penetrating
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7585,6 +7690,14 @@
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-item" style="width:85%">
+                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7594,14 +7707,6 @@
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-item" style="width:85%">
-                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7618,14 +7723,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_sanctified" type="checkbox" value="1">
-                        Sanctified
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -7634,6 +7731,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_sanctified" type="checkbox" value="1">
+                        Sanctified
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7650,14 +7755,6 @@
                       </label>
                     </div>
                   </div>
-                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_smoke" type="checkbox" value="1">
-                        Smoke
-                      </label>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -7666,6 +7763,14 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_smoke" type="checkbox" value="1">
+                        Smoke
+                      </label>
+                    </div>
+                  </div>
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
@@ -7682,11 +7787,35 @@
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-item" style="width:85%">
+                <div class="sheet-3colrow">
                   <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                     <div class="sheet-item">
                       <label>
                         <input name="attr_tearing" type="checkbox" value="1">
                         Tearing
+                      </label>
+                    </div>
+                  </div>
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_toxic" type="checkbox" value="1">
+                        Toxic
+                      </label>
+                    </div>
+                  </div>
+                  <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_twinlinked" type="checkbox" value="20">
+                        Twin-linked
                       </label>
                     </div>
                   </div>
@@ -7697,22 +7826,6 @@
               <div class="sheet-item" style="width:15%">
               </div>
               <div class="sheet-item" style="width:85%">
-                <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                  <div class="sheet-item">
-                    <label>
-                      <input name="attr_toxic" type="checkbox" value="1">
-                      Toxic
-                    </label>
-                  </div>
-                </div>
-                <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
-                  <div class="sheet-item">
-                    <label>
-                      <input name="attr_twinlinked" type="checkbox" value="20">
-                      Twin-linked
-                    </label>
-                  </div>
-                </div>
                 <div class="sheet-col" style="width: calc(33% - 9px) !important; margin-right: 5px !important;">
                   <div class="sheet-item">
                     <label>
@@ -7756,8 +7869,56 @@
             </div>
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
+                <select name="attr_gunaimbonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Aim Bonus</option>
+                  <option value="0" selected>No Aim (+0)</option>
+                  <option value="10">Half Aim (+10)</option>
+                  <option value="20">Full Aim (+20)</option>
+                  <option value="20">Accurate Half (+20)</option>
+                  <option value="30">Accurate Full (+30)</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <select name="attr_gunrangebonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Range Mod</option>
+                  <option value="30">P.Blank (+30)</option>
+                  <option value="10">Short (+10)</option>
+                  <option value="0" selected>Normal (+0)</option>
+                  <option value="-10">Long (-10)</option>
+                  <option value="-30">Extreme (-30)</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <select name="attr_gunactionbonus">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Combat Action Mod</option>
+                  <option value="0" selected>Single Shot (+0)</option>
+                  <option value="10">Semi Auto (+10)</option>
+                  <option value="20">Full Auto (+20)</option>
+                  <option value="-20">Called Shot (-20)</option>
+                  <option value="-20">Suppressing (-20)</option>
+                  <option disabled style="background:gray;font-weight:bold;color:white">Run and Gun</option>
+                  <option value="0">Semi Auto (+0)</option>
+                  <option value="-10">Full Auto (-10)</option>
+                  <option disabled style="background:gray;font-weight:bold;color:white">Permits half-move after attack&nbsp;</option>
+                </select>
+              </div>
+              <div class="sheet-item" style="width:25%">
+                <select name="attr_gundice">
+                  <option disabled style="background:gray;font-weight:bold;color:white">Reliability</option>
+                  <option value="1d100cs1cf>96" selected>Single/Called Shot (96+)</option>
+                  <option value="1d100cs1cf>94">Semi/Full Auto (94+)</option>
+                  <option value="1d100cs1cf>91">Overheats (91+)</option>
+                  <option value="1d100cs1cf>91">Unreliable (91+)</option>
+                  <option value="1d100cs1cf100">Best Craft (No Jam)</option>
+                  <option disabled style="background:gray;font-weight:bold;color:white">Reliable rolls 1d10 on jam&nbsp;
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:25%">
                 <button name="roll_rangedhit" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} shoots with @{rangedweaponname}**}} {{dosdof=[[(((  ([[(@{BallisticSkill} + @{aim} + @{accurate} + ?{Modifier|0} + @{advanceBS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
+                        value="&{template:custom} {{name=**@{character_name} shoots with @{rangedweaponname}**}} {{dosdof=[[(((  ([[(@{BallisticSkill} + @{gunaimbonus} + @{gunrangebonus} + @{gunactionbonus} + ?{Modifier|0} + @{advanceBS})]] - [[@{gundice}]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
                   <label>Hit</label>
                 </button>
               </div>
@@ -7770,32 +7931,33 @@
               <div class="sheet-item" style="width:25%">
                 <button name="roll_RangedDamage" type="roll" class="damage-button" title="Rolls Weapon Damage"
                         value="&{template:custom} {{name=**@{character_name}'s @{rangedweaponname} deals**}} {{d1=?{Hits
-                        |1,[[@{rangedweapondamage}]]
-                        |2,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |3,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |4,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |5,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |6,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |7,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |8,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |9,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]
-                        |10,[[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]] [[@{rangedweapondamage}]]}}} {{t1=**@{Rangedweapontype} Damage!** }} {{p1=**Pen** [[@{Rangedweaponpen}]] **vs AP**}}">
+                        |1,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |2,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |3,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |4,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |5,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |6,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |7,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |8,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |9,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]
+                        |10,[[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]] [[@{rangedweapondamage} + @{qualityexceptional} + @{qualitymaster}]]}}} {{t1=**@{Rangedweapontype} Damage!** }} {{p1=**Pen** [[@{Rangedweaponpen}]] **vs AP**}}">
                   <label>Damage</label>
                 </button>
               </div>
               <div class="sheet-item" style="width:25%">
-                <button name="roll_RangedTearing" type="roll" class="damage-button" title="Rolls Weapon Damage&#10;&#10;Used by Weapons with the Tearing quality"
+                <button name="roll_RangedTearing" type="roll" class="damage-button"
+                        title="Rolls Weapon Damage&#10;&#10;Used by Weapons with the Tearing quality"
                         value="&{template:custom} {{name=**@{character_name}'s @{rangedweaponname} deals**}} {{d1= ?{Hits
-                        |1,[[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |2,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |3,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |4,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |5,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |6,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |7,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |8,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |9,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]
-                        |10,[[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]] [[{@{rangedweapondamage}+1d10&amp;#125;d1]]} }} {{t1=**Tearing @{Rangedweapontype} Damage!**}} {{p1=**Pen** [[@{Rangedweaponpen}]] **vs AP**}}">
+                        |1,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |2,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |3,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |4,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |5,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |6,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |7,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |8,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |9,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]
+                        |10,[[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]] [[{@{rangedweapondamage}+1d10&amp;#125;d1 + @{qualityexceptional} + @{qualitymaster}]]} }} {{t1=**Tearing @{Rangedweapontype} Damage!**}} {{p1=**Pen** [[@{Rangedweaponpen}]] **vs AP**}}">
                   <label>Tearing</label></button>
               </div>
             </div>
@@ -8048,6 +8210,24 @@
       {{#rollBetween() hitloc 86 100}}LEFT LEG{{/rollBetween() hitloc 86 100}}
     </div>
     {{/hitloc}}
+    <!-- section for parry result -->
+    {{#parry}}
+    <div class="sheet-desc">{{parry}}
+      {{#rollGreater() d100 testtarget }}**Failed!** &#10060;{{/rollGreater() d100 testtarget }}
+      {{#rollLess() d100 testtarget }}**Parried!** &#9989;<br><br>
+      {{#rollWasCrit() d100h }}
+      {{d100h}} **The Power Field destroys the opponent's weapon!** &#128165;<br><br>
+      *Power, Force, Warp and Natural*<br>weapons are **unaffected**
+      {{/rollWasCrit() d100h }}
+      {{/rollLess() d100 testtarget }}
+      {{#rollTotal() d100 testtarget }}**Parried!** &#9989;<br><br>
+      {{#rollWasCrit() d100h }}
+      {{d100h}} **The Power Field destroys the opponent's weapon!** &#128165;<br><br>
+      *Power, Force, Warp and Natural*<br>weapons are **unaffected**
+      {{/rollWasCrit() d100h }}
+      {{/rollTotal() d100 testtarget }}
+    </div>
+    {{/parry}}
     <!--section for psy powers result-->
     {{#d100p}}
     <div class="sheet-result">{{d100p}}&#160;d100 Roll</div>
