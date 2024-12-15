@@ -97,6 +97,16 @@
     width: 100%;
     min-width: 900px;
 }
+.charsheet .sheet-wrapper h2 {
+    color: black;
+    padding:3px;
+    margin-bottom:5px;
+    font-size:20px;
+    font-weight:bold;
+    font-family: inherit;
+    text-transform:uppercase;
+    text-align:center;
+}
 .charsheet .sheet-wrapper h3 {
     color: black;
     padding:3px;
@@ -227,36 +237,56 @@
     line-height: 24px;
     vertical-align: middle;
 }
-.charsheet .sheet-wrapper .sheet-3colrow .sheet-col {
+.charsheet .sheet-wrapper .sheet-4colrow > .sheet-col {
+    width: calc(25% - 3px) ;
+    margin-right: 2px ;
+}
+.charsheet .sheet-wrapper .sheet-4colrow > .sheet-col:last-child {
+    margin-right: 0 ;
+}
+.charsheet .sheet-wrapper .sheet-3colrow > .sheet-col {
+    width: calc(33% - 3px) ;
+    margin-right: 2px ;
+}
+.charsheet .sheet-wrapper .sheet-3colrow > .sheet-col:last-child {
+    margin-right: 0 ;
+}
+.charsheet .sheet-wrapper .sheet-3colrowoffset > .sheet-col {
     width: calc(40% - 9px) ;
     margin-right: 5px ;
 }
-.charsheet .sheet-wrapper .sheet-3colrow .sheet-col:nth-child(2) {
+.charsheet .sheet-wrapper .sheet-3colrowoffset > .sheet-col:nth-child(2) {
     width: calc(20% - 9px) ;
     margin-right:5px;
 }
-.charsheet .sheet-wrapper .sheet-3colrow .sheet-col:last-child {
+.charsheet .sheet-wrapper .sheet-3colrowoffset > .sheet-col:last-child {
     margin-right: 0 ;
 }
-.charsheet .sheet-wrapper .sheet-2colrow .sheet-col {
+.charsheet .sheet-wrapper .sheet-2colrow > .sheet-col {
     width: calc(50% - 3px) ;
     margin-right: 2px ;
 }
-.charsheet .sheet-wrapper .sheet-2colrow .sheet-col:last-child {
+.charsheet .sheet-wrapper .sheet-2colrow > .sheet-col:last-child {
     margin-right: 0 ;
 }
-.charsheet .sheet-wrapper .sheet-1colrow .sheet-col {
+.charsheet .sheet-wrapper .sheet-1colrow > .sheet-col {
     width: calc(100% - 3px) ;
     margin-right: 0 ;
 }
 
-/* Table Container */
-.charsheet .sheet-wrapper .sheet-tablecontainer {
-    display:table;
+.charsheet .sheet-wrapper .sheet-col > .sheet-table {
+    border: black 1px solid;
+    height: auto !important;
 }
-.charsheet .sheet-wrapper .sheet-tablecell {
-    display:table-cell;
+
+.charsheet .sheet-wrapper .sheet-col > .sheet-table:nth-child(odd){
+    background-color: lightgrey;
 }
+
+.charsheet .sheet-wrapper .sheet-col .sheet-table > .sheet-item {
+    height: auto !important;
+}
+
 
 /* Special Styles */
 .charsheet .sheet-wrapper .sheet-skills td:first-child {
@@ -631,6 +661,24 @@ button.hit-button {
 
 button.damage-button {
     background-color: #DDDDDD !important;
+}
+
+.autoExpand {
+    overflow: hidden; /* hides overflow that is caused by the span */
+    position: relative; /* Allows the input's absolute positioning to be relative to this parent div */
+    min-width: 50px; /* Whatever feels good to you, prevents a new span from collapsing to 0. */
+    width: fit-content; /* Will fit the width to the contents without going outside itself or collapsing smaller than its content, though we will be using min-width in the case where there's no content. */
+    height: 20px; /* Prevent the span from defining the height of the input container which can't be multiline */
+}
+.autoExpand span {
+    visibility: hidden;
+    font-size: 1em;
+    padding: 0 8px; /* Matching my input's padding so that the widths are correct */
+}
+.autoExpand input {
+    position: absolute; /* removes the input from the DOM flow, allowing the span to exist in the same space */
+    width: 100%; /* Inputs match the width of the parent element as defined by the spans */
+    font-size: 1em;
 }
 
 /* ROLL TEMPLATE STYLE CUSTOM based on "better default template"*/
