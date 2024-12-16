@@ -663,6 +663,10 @@ button.damage-button {
     background-color: #DDDDDD !important;
 }
 
+.repcontainer {
+    padding-bottom: 2px !important;
+}
+
 .autoExpand {
     overflow: hidden; /* hides overflow that is caused by the span */
     position: relative; /* Allows the input's absolute positioning to be relative to this parent div */

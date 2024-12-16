@@ -8018,7 +8018,8 @@
           <label>Earned XP</label>
         </div>
         <div class="sheet-item sheet-tiny sheet-armourblock">
-          <input name="attr_XPTotal" type="number">
+          <input name="attr_XPTotal" type="number" value="@{startingXPDeathwatch} + @{earnedXP}" disabled>
+          <input name="attr_earnedXP" type="hidden" value="0">
         </div>
         <div class="sheet-item sheet-tiny">
           <label>Total XP Spent</label>
@@ -8041,12 +8042,27 @@
           <label>Starting XP Used</label>
         </div>
         <div class="sheet-item sheet-tiny sheet-armourblock">
-          <input name="attr_startingXPUsed" type="text" value="12000" disabled />
+          <input name="attr_startingXPUsed" type="text" value="@{startingXPDeathwatch}" disabled />
+          <input name="attr_startingXPDeathwatch" type="hidden" value="12000">
         </div>
       </div>
+      <div class="sheet-row"></div>
+      <div class="sheet-row">
+        <h3>Session Notes and Earned XP</h3>
+      </div>
+      <fieldset class="repeating_experience">
+        <div class="sheet-row" style="text-align: center">
+          <div class="sheet-item" style="width: calc(94% - 3%)">
+            <input name="attr_sessionNotes" type="text"/>
+          </div>
+          <div class="sheet-item sheet-puny sheet-center sheet-brackets sheet-armourblock">
+            <input name="attr_sessionXP" type="text"/>
+          </div>
+        </div>
+      </fieldset>
       <div class="sheet-row">
         <div class="sheet-item">
-          <label>Advancements Taken:</label>
+          <h3>Advancements</h3>
         </div>
       </div>
       <div class="sheet-row">
@@ -8201,7 +8217,7 @@
         </div>
         <div class="sheet-row sheet-table">
           <div class="sheet-item" style="width: 24%">
-            <p>Deathwatch Apothecary</p>
+            <span style="font-weight: bold">Deathwatch Apothecary</span>
           </div>
           <div class="sheet-item" style="width: 24%">
             <p>Medical experts and healers</p>
@@ -8215,7 +8231,7 @@
         </div>
         <div class="sheet-row sheet-table">
           <div class="sheet-item" style="width: 24%">
-            <span>Deathwatch Assault Marine</span>
+            <span style="font-weight: bold">Deathwatch Assault Marine</span>
           </div>
           <div class="sheet-item" style="width: 24%">
             <span>Fierce hand-to-hand combatants</span>
@@ -8229,7 +8245,7 @@
         </div>
         <div class="sheet-row sheet-table">
           <div class="sheet-item" style="width: 24%">
-            <span>Deathwatch Devastator Marine</span>
+            <span style="font-weight: bold">Deathwatch Devastator Marine</span>
           </div>
           <div class="sheet-item" style="width: 24%">
             <span>Masters of heavy weapons</span>
@@ -8243,7 +8259,7 @@
         </div>
         <div class="sheet-row sheet-table">
           <div class="sheet-item" style="width: 24%">
-            <span>Deathwatch Librarian</span>
+            <span style="font-weight: bold">Deathwatch Librarian</span>
           </div>
           <div class="sheet-item" style="width: 24%">
             <span>Powerful battle-psykers</span>
@@ -8257,7 +8273,7 @@
         </div>
         <div class="sheet-row sheet-table">
           <div class="sheet-item" style="width: 24%">
-            <span>Deathwatch Tactical Marine</span>
+            <span style="font-weight: bold">Deathwatch Tactical Marine</span>
           </div>
           <div class="sheet-item" style="width: 24%">
             <span>Well-rounded leaers and warriors</span>
@@ -8271,7 +8287,7 @@
         </div>
         <div class="sheet-row sheet-table">
           <div class="sheet-item" style="width: 24%">
-            <span>Deathwatch Techmarine</span>
+            <span style="font-weight: bold">Deathwatch Techmarine</span>
           </div>
           <div class="sheet-item" style="width: 24%">
             <span>Bionically-enhanced masters of machinery</span>
@@ -8564,6 +8580,9 @@ on('change:repeating_advancements:advancementRe2xp remove:repeating_advancements
 });
 on('change:repeating_advancements:advancementRe3xp remove:repeating_advancements',function(){
   repeatingSum("advtotal3","advancements","advancementRe3xp");
+});
+on('change:repeating_experience:sessionXP remove:repeating_experience', function(){
+  repeatingSum("earnedXP","experience","sessionXP");
 });
 </script>
 <rolltemplate class="sheet-rolltemplate-custom">
