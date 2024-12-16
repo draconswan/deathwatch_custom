@@ -11,7 +11,7 @@
 <!-- Opener -->
 <div class="sheet-tab-br" style="margin-bottom: 10px;"></div>
 <!-- Sheets -->
-<!-- Tab 1 - Quick Menu-->
+<!-- Tab 1 Quick Menu-->
 <div class="sheet-tab-content sheet-tab1">
   <div class="sheet-wrapper">
     <div class="sheet-2colrow">
@@ -228,6 +228,14 @@
             </div>
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
+                <label>Attachments:</label>
+              </div>
+              <div class="sheet-item" style="width:75%">
+                <input name="attr_meleeweaponmods" type="text">
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:25%">
                 <label>Legacy Special:</label>
               </div>
               <div class="sheet-item" style="width:75%">
@@ -243,24 +251,27 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_balanced" type="checkbox" value="10">
+                        <input name="attr_balanced" type="checkbox" value="1">
                         Balanced
+                        <input type="hidden" name="attr_balancedVal" value="10">
                       </label>
                     </div>
                   </div>
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_defensiveattack" type="checkbox" value="-10">
-                        Defensive (A)
+                        <input name="attr_defensive" type="checkbox" value="1">
+                        Defensive
+                        <input type="hidden" name="attr_defensiveParryVal" value="15">
+                        <input type="hidden" name="attr_defensiveAtkVal" value="-10">
                       </label>
                     </div>
                   </div>
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_defensiveparry" type="checkbox" value="15">
-                        Defensive (P)
+                        <input name="attr_deflagrate" type="checkbox" value="1">
+                        Deflagrate
                       </label>
                     </div>
                   </div>
@@ -272,14 +283,6 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
-                  <div class="sheet-col">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_deflagrate" type="checkbox" value="1">
-                        Deflagrate
-                      </label>
-                    </div>
-                  </div>
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
@@ -296,14 +299,6 @@
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-item" style="width:85%">
-                <div class="sheet-3colrow">
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
@@ -312,6 +307,14 @@
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-item" style="width:85%">
+                <div class="sheet-3colrow">
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
@@ -329,6 +332,14 @@
                       </label>
                     </div>
                   </div>
+                  <div class="sheet-col">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_sanctified" type="checkbox" value="1">
+                        Sanctified
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -340,14 +351,6 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_sanctified" type="checkbox" value="1">
-                        Sanctified
-                      </label>
-                    </div>
-                  </div>
-                  <div class="sheet-col">
-                    <div class="sheet-item">
-                      <label>
                         <input name="attr_tearing" type="checkbox" value="1">
                         Tearing
                       </label>
@@ -356,24 +359,19 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_unbalanced" type="checkbox" value="-10">
+                        <input name="attr_unbalanced" type="checkbox" value="1">
                         Unbalanced
+                        <input type="hidden" name="attr_unbalancedVal" value="-10">
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-col">
-                <div class="sheet-3colrow">
-                  <div class="sheet-item">
-                    <label>
-                      <input name="attr_unwieldy" type="checkbox" value="1">
-                      Unwieldy
-                    </label>
+                  <div class="sheet-col">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_unwieldy" type="checkbox" value="1">
+                        Unwieldy
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -395,16 +393,18 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_qualityexceptional" type="checkbox" value="5">
+                        <input name="attr_qualityexceptional" type="checkbox" value="1">
                         Exceptional
+                        <input name="attr_qualityexceptionalVal" type="hidden" value="5">
                       </label>
                     </div>
                   </div>
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_qualitymaster" type="checkbox" value="5">
+                        <input name="attr_qualitymaster" type="checkbox" value="1">
                         Master
+                        <input name="attr_qualitymasterVal" type="hidden" value="5">
                       </label>
                     </div>
                   </div>
@@ -432,13 +432,13 @@
               </div>
               <div class="sheet-item" style="width:25%">
                 <button name="roll_parry" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{balanced} + @{defensiveparry} + @{unbalanced} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }}">
+                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional}*@{qualityexceptionalVal} + @{qualitymaster}*@{qualityMasterVal} + @{balanced}*@{balancedVal} + @{defensive}*@{defensiveParryVal} + @{unbalanced}*@{unbalancedVal} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }}">
                   <label>Parry</label>
                 </button>
               </div>
               <div class="sheet-item" style="width:25%">
                 <button name="roll_powerparry" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{balanced} + @{defensiveparry} + @{unbalanced} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }} {{d100h=[[1d100cf<25cs>26]] }}">
+                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional}*@{qualityexceptionalVal} + @{qualitymaster}*@{qualityMasterVal} + @{balanced}*@{balancedVal} + @{defensive}*@{defensiveParryVal} + @{unbalanced}*@{unbalancedVal} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }} {{d100h=[[1d100cf<25cs>26]] }}">
                   <label>Power Parry</label>
                 </button>
               </div>
@@ -446,7 +446,7 @@
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
                 <button name="roll_meleehit" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} attacks with @{meleeweaponname}**}} {{dosdof=[[(((  ([[(@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{meleeaimbonus} + @{meleeactionbonus} + @{defensiveattack} + ?{Modifier|0} + @{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
+                        value="&{template:custom} {{name=**@{character_name} attacks with @{meleeweaponname}**}} {{dosdof=[[(((  ([[(@{WeaponSkill} + @{qualityexceptional}*@{qualityexceptionalVal} + @{qualitymaster}*@{qualityMasterVal} + @{meleeaimbonus} + @{meleeactionbonus} + @{defensive}*@{defensiveAtkVal} + ?{Modifier|0} + @{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
                   <label>Hit</label>
                 </button>
               </div>
@@ -616,7 +616,6 @@
                 <input name="attr_rangedweaponpen" type="text" value="0">
               </div>
             </div>
-
             <div class="sheet-row">
               <div class="sheet-item" style="width:9%">
                 <label>RoF:</label>
@@ -656,7 +655,14 @@
                 <input name="attr_rangedweaponreload" type="text">
               </div>
             </div>
-
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:25%">
+                <label>Attachments:</label>
+              </div>
+              <div class="sheet-item" style="width:75%">
+                <input name="attr_rangedweaponmods" type="text">
+              </div>
+            </div>
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
                 <label>Legacy Special:</label>
@@ -919,8 +925,9 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_twinlinked" type="checkbox" value="20">
+                        <input name="attr_twinlinked" type="checkbox" value="1">
                         Twin-linked
+                        <input name="attr_twinlinkedVal" type="hidden" value="20">
                       </label>
                     </div>
                   </div>
@@ -7179,6 +7186,14 @@
             </div>
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
+                <label>Attachments:</label>
+              </div>
+              <div class="sheet-item" style="width:75%">
+                <input name="attr_meleeweaponmods" type="text">
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:25%">
                 <label>Legacy Special:</label>
               </div>
               <div class="sheet-item" style="width:75%">
@@ -7194,24 +7209,27 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_balanced" type="checkbox" value="10">
+                        <input name="attr_balanced" type="checkbox" value="1">
                         Balanced
+                        <input type="hidden" name="attr_balancedVal" value="10">
                       </label>
                     </div>
                   </div>
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_defensiveattack" type="checkbox" value="-10">
-                        Defensive (A)
+                        <input name="attr_defensive" type="checkbox" value="1">
+                        Defensive
+                        <input type="hidden" name="attr_defensiveParryVal" value="15">
+                        <input type="hidden" name="attr_defensiveAtkVal" value="-10">
                       </label>
                     </div>
                   </div>
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_defensiveparry" type="checkbox" value="15">
-                        Defensive (P)
+                        <input name="attr_deflagrate" type="checkbox" value="1">
+                        Deflagrate
                       </label>
                     </div>
                   </div>
@@ -7223,14 +7241,6 @@
               </div>
               <div class="sheet-item" style="width:85%">
                 <div class="sheet-3colrow">
-                  <div class="sheet-col">
-                    <div class="sheet-item">
-                      <label>
-                        <input name="attr_deflagrate" type="checkbox" value="1">
-                        Deflagrate
-                      </label>
-                    </div>
-                  </div>
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
@@ -7247,14 +7257,6 @@
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-item" style="width:85%">
-                <div class="sheet-3colrow">
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
@@ -7263,6 +7265,14 @@
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:15%">
+              </div>
+              <div class="sheet-item" style="width:85%">
+                <div class="sheet-3colrow">
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
@@ -7280,6 +7290,14 @@
                       </label>
                     </div>
                   </div>
+                  <div class="sheet-col">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_sanctified" type="checkbox" value="1">
+                        Sanctified
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -7291,14 +7309,6 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_sanctified" type="checkbox" value="1">
-                        Sanctified
-                      </label>
-                    </div>
-                  </div>
-                  <div class="sheet-col">
-                    <div class="sheet-item">
-                      <label>
                         <input name="attr_tearing" type="checkbox" value="1">
                         Tearing
                       </label>
@@ -7307,24 +7317,19 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_unbalanced" type="checkbox" value="-10">
+                        <input name="attr_unbalanced" type="checkbox" value="1">
                         Unbalanced
+                        <input type="hidden" name="attr_unbalancedVal" value="-10">
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="sheet-row">
-              <div class="sheet-item" style="width:15%">
-              </div>
-              <div class="sheet-col">
-                <div class="sheet-3colrow">
-                  <div class="sheet-item">
-                    <label>
-                      <input name="attr_unwieldy" type="checkbox" value="1">
-                      Unwieldy
-                    </label>
+                  <div class="sheet-col">
+                    <div class="sheet-item">
+                      <label>
+                        <input name="attr_unwieldy" type="checkbox" value="1">
+                        Unwieldy
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -7346,16 +7351,18 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_qualityexceptional" type="checkbox" value="5">
+                        <input name="attr_qualityexceptional" type="checkbox" value="1">
                         Exceptional
+                        <input name="attr_qualityexceptionalVal" type="hidden" value="5">
                       </label>
                     </div>
                   </div>
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_qualitymaster" type="checkbox" value="5">
+                        <input name="attr_qualitymaster" type="checkbox" value="1">
                         Master
+                        <input name="attr_qualitymasterVal" type="hidden" value="5">
                       </label>
                     </div>
                   </div>
@@ -7383,13 +7390,13 @@
               </div>
               <div class="sheet-item" style="width:25%">
                 <button name="roll_parry" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{balanced} + @{defensiveparry} + @{unbalanced} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }}">
+                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional}*@{qualityexceptionalVal} + @{qualitymaster}*@{qualityMasterVal} + @{balanced}*@{balancedVal} + @{defensive}*@{defensiveParryVal} + @{unbalanced}*@{unbalancedVal} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }}">
                   <label>Parry</label>
                 </button>
               </div>
               <div class="sheet-item" style="width:25%">
                 <button name="roll_powerparry" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{balanced} + @{defensiveparry} + @{unbalanced} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }} {{d100h=[[1d100cf<25cs>26]] }}">
+                        value="&{template:custom} {{name=**@{character_name} tries to Parry with @{meleeweaponname}**}} {{testtarget=[[ (@{WeaponSkill} + @{qualityexceptional}*@{qualityexceptionalVal} + @{qualitymaster}*@{qualityMasterVal} + @{balanced}*@{balancedVal} + @{defensive}*@{defensiveParryVal} + @{unbalanced}*@{unbalancedVal} + ?{Modifier|0} + @{advanceWS}) ]] }} {{d100= [[1d100cs1cf100]] }} {{parry= }} {{d100h=[[1d100cf<25cs>26]] }}">
                   <label>Power Parry</label>
                 </button>
               </div>
@@ -7397,7 +7404,7 @@
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
                 <button name="roll_meleehit" type="roll" class="hit-button"
-                        value="&{template:custom} {{name=**@{character_name} attacks with @{meleeweaponname}**}} {{dosdof=[[(((  ([[(@{WeaponSkill} + @{qualityexceptional} + @{qualitymaster} + @{meleeaimbonus} + @{meleeactionbonus} + @{defensiveattack} + ?{Modifier|0} + @{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
+                        value="&{template:custom} {{name=**@{character_name} attacks with @{meleeweaponname}**}} {{dosdof=[[(((  ([[(@{WeaponSkill} + @{qualityexceptional}*@{qualityexceptionalVal} + @{qualitymaster}*@{qualityMasterVal} + @{meleeaimbonus} + @{meleeactionbonus} + @{defensive}*@{defensiveAtkVal} + ?{Modifier|0} + @{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100a= $[[1]] }} {{attack= }}">
                   <label>Hit</label>
                 </button>
               </div>
@@ -7492,7 +7499,6 @@
                 </select>
               </div>
             </div>
-
             <div class="sheet-row">
               <div class="sheet-item" style="width:12%">
                 <label>Range:</label>
@@ -7524,7 +7530,6 @@
                 <input name="attr_rangedweaponpen" type="text" value="0">
               </div>
             </div>
-
             <div class="sheet-row">
               <div class="sheet-item" style="width:9%">
                 <label>RoF:</label>
@@ -7564,7 +7569,14 @@
                 <input name="attr_rangedweaponreload" type="text">
               </div>
             </div>
-
+            <div class="sheet-row">
+              <div class="sheet-item" style="width:25%">
+                <label>Attachments:</label>
+              </div>
+              <div class="sheet-item" style="width:75%">
+                <input name="attr_rangedweaponmods" type="text">
+              </div>
+            </div>
             <div class="sheet-row">
               <div class="sheet-item" style="width:25%">
                 <label>Legacy Special:</label>
@@ -7827,8 +7839,9 @@
                   <div class="sheet-col">
                     <div class="sheet-item">
                       <label>
-                        <input name="attr_twinlinked" type="checkbox" value="20">
+                        <input name="attr_twinlinked" type="checkbox" value="1">
                         Twin-linked
+                        <input name="attr_twinlinkedVal" type="hidden" value="20">
                       </label>
                     </div>
                   </div>
@@ -8394,9 +8407,9 @@
         </div>
         <div class="sheet-row"></div>
         <div class="sheet-row sheet-table">
-          <div class="sheet-item">
+          <div class="sheet-item sheet-center">
             <h3>All Specialities Standard Issue</h3>
-            <ul style="columns: 2">
+            <ul style="columns: 2; text-align: left">
               <li>Astartes power armour</li>
               <li>Astartes bolt pistol</li>
               <li>3 Astartes frag grenades</li>
@@ -8405,61 +8418,68 @@
               <li>Repair cement</li>
               <li>One Chapter Trapping</li>
             </ul>
+            <button type="action" class="btn" name="act_addEquipmentStd">Add to Marine</button>
           </div>
         </div>
         <div class="sheet-row sheet-table">
-          <div class="sheet-item">
+          <div class="sheet-item sheet-center">
             <h3>Deathwatch Apothecary Standard Issue</h3>
-            <ul style="columns: 2">
+            <ul style="columns: 2; text-align: left">
               <li>Astartes bolter with fire selector</li>
               <li>Reductor</li>
               <li>Narthecium</li>
             </ul>
+            <button type="action" class="btn" name="act_addEquipmentApo">Add to Marine</button>
           </div>
         </div>
         <div class="sheet-row sheet-table">
-          <div class="sheet-item">
+          <div class="sheet-item sheet-center">
             <h3>Deathwatch Assault Marine Standard Issue</h3>
-            <ul style="columns: 2">
+            <ul style="columns: 2; text-align: left">
               <li>Astartes chainsword</li>
               <li>Astartes jump pack</li>
             </ul>
+            <button type="action" class="btn" name="act_addEquipmentAslt">Add to Marine</button>
           </div>
         </div>
         <div class="sheet-row sheet-table">
-          <div class="sheet-item">
+          <div class="sheet-item sheet-center">
             <h3>Deathwatch Devastator Marine Standard Issue</h3>
-            <ul style="columns: 2">
+            <ul style="columns: 2; text-align: left">
               <li>Astartes heavy bolter with backpack ammo supply</li>
             </ul>
+            <button type="action" class="btn" name="act_addEquipmentDev">Add to Marine</button>
           </div>
         </div>
         <div class="sheet-row sheet-table">
-          <div class="sheet-item">
+          <div class="sheet-item sheet-center">
             <h3>Deathwatch Librarian Standard Issue</h3>
-            <ul style="columns: 2">
+            <ul style="columns: 2; text-align: left">
               <li>Astartes bolter with fire selector</li>
               <li>Force Weapon</li>
             </ul>
+            <button type="action" class="btn" name="act_addEquipmentLib">Add to Marine</button>
           </div>
         </div>
         <div class="sheet-row sheet-table">
-          <div class="sheet-item">
+          <div class="sheet-item sheet-center">
             <h3>Deathwatch Tactical Marine Standard Issue</h3>
-            <ul>
+            <ul style="text-align: left">
               <li>Astartes bolter with fire selector</li>
               <li>One clip of Special Issue ammunition (&lt;= 25 Rec per clip, must meet Renown requirement)</li>
             </ul>
+            <button type="action" class="btn" name="act_addEquipmentTac">Add to Marine</button>
           </div>
         </div>
         <div class="sheet-row sheet-table">
-          <div class="sheet-item">
+          <div class="sheet-item sheet-center">
             <h3>Deathwatch Techmarine Standard Issue</h3>
-            <ul style="columns: 2">
+            <ul style="columns: 2; text-align: left">
               <li>Astartes bolter with fire selector</li>
               <li>Astartes servo-arm (as part of power armor)</li>
               <li>One other Common craftsmanship cybernetic</li>
             </ul>
+            <button type="action" class="btn" name="act_addEquipmentTech">Add to Marine</button>
           </div>
         </div>
       </div>
@@ -8583,6 +8603,193 @@ on('change:repeating_advancements:advancementRe3xp remove:repeating_advancements
 });
 on('change:repeating_experience:sessionXP remove:repeating_experience', function(){
   repeatingSum("earnedXP","experience","sessionXP");
+});
+
+<!-- Standard Issue Equipment -->
+on('clicked:addEquipmentStd', function(){
+  <!-- Astartes Combat Knife-->
+  var newRowId = generateRowID();
+  var newRowAttrs = {};
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponname"] = "Astartes Combat Knife";
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponclass"] = "Melee";
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapondamage"] = "1d10";
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapontype"] = "Rending";
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponpen"] = 2;
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_qualityregular"] = 1;
+  setAttrs(newRowAttrs);
+  <!-- Astartes frag grenade -->
+  newRowId = generateRowID();
+  newRowAttrs = {};
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Frag Grenade";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Thrown";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "SB*3"
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "2d10";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 0;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "3";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "3";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_blast"] = 1;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_blastVal"] = 5;
+  setAttrs(newRowAttrs);
+  <!-- Astartes krak grenade -->
+  newRowId = generateRowID();
+  newRowAttrs = {};
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Krak Grenade";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Thrown";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "SB*3"
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "3d10+4";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 10;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "3";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "3";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_blast"] = 1;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_blastVal"] = 1;
+  setAttrs(newRowAttrs);
+  <!-- Astartes Bolt Pistol -->
+  newRowId = generateRowID();
+  newRowAttrs = {};
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolt Pistol";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Pistol";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "30"
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "2";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "14";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "14";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+  setAttrs(newRowAttrs);
+});
+
+<!-- Apothecary Standard Equipment -->
+on('clicked:addEquipmentApo', function(){
+  <!-- Astartes Bolter -->
+  newRowId = generateRowID();
+  newRowAttrs = {};
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+  setAttrs(newRowAttrs);
+});
+
+<!-- Assault Marine Standard Equipment -->
+on('clicked:addEquipmentAslt', function(){
+  <!-- Astartes Chainsword-->
+  var newRowId = generateRowID();
+  var newRowAttrs = {};
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponname"] = "Astartes Chainsword";
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponclass"] = "Melee";
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapondamage"] = "1d10+3";
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapontype"] = "Rending";
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponpen"] = 3;
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_balanced"] = 1;
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_tearing"] = 1;
+  newRowAttrs["repeating_meleeweapons_" + newRowId + "_qualityregular"] = 1;
+  setAttrs(newRowAttrs);
+});
+
+<!-- Devastator Marine Standard Equipment -->
+on('clicked:addEquipmentDev', function(){
+  <!-- Astartes Heavy Bolter -->
+  newRowId = generateRowID();
+  newRowAttrs = {};
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Heavy Bolter";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Heavy";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "150"
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+12";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 5;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "-";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "-";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponfull"] = "6";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "250";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "250";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Backpack Ammo Supply";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+  setAttrs(newRowAttrs);
+});
+
+<!-- Librarian Standard Equipment -->
+on('clicked:addEquipmentLib', function(){
+  <!-- Astartes Bolter -->
+  newRowId = generateRowID();
+  newRowAttrs = {};
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+  setAttrs(newRowAttrs);
+});
+
+<!-- Tactical Marine Standard Equipment -->
+on('clicked:addEquipmentTac', function(){
+  <!-- Astartes Bolter -->
+  newRowId = generateRowID();
+  newRowAttrs = {};
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+  setAttrs(newRowAttrs);
+});
+
+<!-- Techmarine Standard Equipment -->
+on('clicked:addEquipmentTech', function(){
+  <!-- Astartes Bolter -->
+  newRowId = generateRowID();
+  newRowAttrs = {};
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+  setAttrs(newRowAttrs);
 });
 </script>
 <rolltemplate class="sheet-rolltemplate-custom">
