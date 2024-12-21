@@ -8188,12 +8188,14 @@
       </div>
     </div>
     <div class="sheet-2colrow">
+      <!-- Stage 1: Generate Characteristics -->
       <div class="sheet-col">
         <h2>Stage 1: Generate Characteristics</h2>
         <button name="roll_characteristics" type="roll" value="&{template:custom}{{name=Space Marine Stats}}{{Weapon Skill=[[2d10+30]]}}{{Ballistic Skill=[[2d10+30]]}}{{Strength=[[2d10+30]]}}{{Toughness=[[2d10+30]]}}{{Agility=[[2d10+30]]}}{{Intelligence=[[2d10+30]]}}{{Perception=[[2d10+30]]}}{{Willpower=[[2d10+30]]}}{{Fellowship=[[2d10+30]]}}{{Fate 1-7(3) 8-9(4) 10(5)=[[1d10]]}}{{Armor 1(Mk4) 2(Mk5) 3-5(Mk6) 6-9(Mk7) 10(Mk8) =[[1d10]]}}{{Wounds=[[1d5+18]]}}{{Reroll (Influence)=[[2d10+30]]}}">
           <label>Generate Characteristics</label>
         </button>
       </div>
+      <!-- Stage 2: Select Chapter and Demeanour -->
       <div class="sheet-col">
         <h2>Stage 2: Select Chapter and Demeanour</h2>
         <label style="width: 20%">Chapter: </label>
@@ -8204,6 +8206,7 @@
     </div>
     <div class="sheet-row"></div>
     <div class="sheet-2colrow">
+      <!-- Stage 3: Select Speciality -->
       <div class="sheet-col">
         <h2>Stage 3: Select Speciality</h2>
         <div class="sheet-row">
@@ -8313,6 +8316,7 @@
           </div>
         </div>
       </div>
+      <!-- Stage 4: Movement, Wounds, Fate -->
       <div class="sheet-col">
         <div class="sheet-row">
           <h2>Stage 4: Movement, Wounds, Fate</h2>
@@ -8401,6 +8405,7 @@
     </div>
     <div class="sheet-row"></div>
     <div class="sheet-2colrow">
+      <!-- Stage 5: Starting Equipment -->
       <div class="sheet-col">
         <div class="sheet-row">
           <h2>Stage 5: Starting Equipment</h2>
@@ -8483,6 +8488,7 @@
           </div>
         </div>
       </div>
+      <!-- Stage 6: Giving Characters Life -->
       <div class="sheet-col">
         <div class="sheet-row">
           <h2>Stage 6: Giving Characters Life</h2>
@@ -8550,26 +8556,28 @@
 </div>
 <!-- END CODE -->
 <script type="text/worker">
-/*Repeating Sum setup -- including psypowers, advancements and gear weight*/
-const repeatingSum = (destinations, section, fields) => {
-  if (!Array.isArray(destinations)) destinations = [destinations.replace(/\s/g, '').split(',')];
-  if (!Array.isArray(fields)) fields = [fields.replace(/\s/g, '').split(',')];
-  getSectionIDs(`repeating_${section}`, idArray => {
-      const attrArray = idArray.reduce((m, id) => [...m, ...(fields.map(field => `repeating_${section}_${id}_${field}`))], []);
-      getAttrs([...attrArray], v => {
-          const getValue = (section, id, field) => v[`repeating_${section}_${id}_${field}`] === 'on' ? 1 : parseFloat(v[`repeating_${section}_${id}_${field}`]) || 0;
-          const commonMultipliers = (fields.length <= destinations.length) ? [] : fields.splice(destinations.length, fields.length - destinations.length);
-          const output = {};
-          destinations.forEach((destination, index) => {
-              output[destination] = idArray.reduce((total, id) => total + getValue(section, id, fields[index]) * commonMultipliers.reduce((subtotal, mult) => subtotal * getValue(section, id, mult), 1), 0);
-          });
-          setAttrs(output);
-      });
-  });
-};
-on('change:XPTotal sheet:opened', function(){
-  getAttrs(["XPTotal"], function(values){
-      let total = parseInt(values.XPTotal)||0;
+  /*Repeating Sum setup -- including psypowers, advancements and gear weight*/
+  const repeatingSum = (destinations, section, fields) => {
+    if (!Array.isArray(destinations)) destinations = [destinations.replace(/\s/g, '').split(',')];
+    if (!Array.isArray(fields)) fields = [fields.replace(/\s/g, '').split(',')];
+    getSectionIDs(`repeating_${section}`, idArray => {
+        const attrArray = idArray.reduce((m, id) => [...m, ...(fields.map(field => `repeating_${section}_${id}_${field}`))], []);
+        getAttrs([...attrArray], v => {
+            const getValue = (section, id, field) => v[`repeating_${section}_${id}_${field}`] === 'on' ? 1 : parseFloat(v[`repeating_${section}_${id}_${field}`]) || 0;
+            const commonMultipliers = (fields.length <= destinations.length) ? [] : fields.splice(destinations.length, fields.length - destinations.length);
+            const output = {};
+            destinations.forEach((destination, index) => {
+                output[destination] = idArray.reduce((total, id) => total + getValue(section, id, fields[index]) * commonMultipliers.reduce((subtotal, mult) => subtotal * getValue(section, id, mult), 1), 0);
+            });
+            setAttrs(output);
+        });
+    });
+  };
+  on('change:XPTotal sheet:opened', function(){
+    getAttrs(["startingXPDeathwatch", "earnedXP"], function(values){
+      let startingXp = parseInt(values.startingXPDeathwatch)||0;
+      let earnedXp = parseInt(values.earnedXP)||0;
+      let total = startingXp + earnedXp;
       let rank = 0;
       if(total < 17000)
         rank = 1;
@@ -8590,207 +8598,207 @@ on('change:XPTotal sheet:opened', function(){
       setAttrs({
         RankCalc: rank
       })
+    });
   });
-});
-on('change:repeating_advancements:advancementRe1xp remove:repeating_advancements',function(){
-  repeatingSum("advtotal1","advancements","advancementRe1xp");
-});
-on('change:repeating_advancements:advancementRe2xp remove:repeating_advancements',function(){
-  repeatingSum("advtotal2","advancements","advancementRe2xp");
-});
-on('change:repeating_advancements:advancementRe3xp remove:repeating_advancements',function(){
-  repeatingSum("advtotal3","advancements","advancementRe3xp");
-});
-on('change:repeating_experience:sessionXP remove:repeating_experience', function(){
-  repeatingSum("earnedXP","experience","sessionXP");
-});
+  on('change:repeating_advancements:advancementRe1xp remove:repeating_advancements',function(){
+    repeatingSum("advtotal1","advancements","advancementRe1xp");
+  });
+  on('change:repeating_advancements:advancementRe2xp remove:repeating_advancements',function(){
+    repeatingSum("advtotal2","advancements","advancementRe2xp");
+  });
+  on('change:repeating_advancements:advancementRe3xp remove:repeating_advancements',function(){
+    repeatingSum("advtotal3","advancements","advancementRe3xp");
+  });
+  on('change:repeating_experience:sessionXP remove:repeating_experience', function(){
+    repeatingSum("earnedXP","experience","sessionXP");
+  });
 
-<!-- Standard Issue Equipment -->
-on('clicked:addEquipmentStd', function(){
-  <!-- Astartes Combat Knife-->
-  var newRowId = generateRowID();
-  var newRowAttrs = {};
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponname"] = "Astartes Combat Knife";
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponclass"] = "Melee";
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapondamage"] = "1d10";
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapontype"] = "Rending";
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponpen"] = 2;
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_qualityregular"] = 1;
-  setAttrs(newRowAttrs);
-  <!-- Astartes frag grenade -->
-  newRowId = generateRowID();
-  newRowAttrs = {};
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Frag Grenade";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Thrown";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "SB*3"
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "2d10";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 0;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "3";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "3";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_blast"] = 1;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_blastVal"] = 5;
-  setAttrs(newRowAttrs);
-  <!-- Astartes krak grenade -->
-  newRowId = generateRowID();
-  newRowAttrs = {};
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Krak Grenade";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Thrown";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "SB*3"
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "3d10+4";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 10;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "3";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "3";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_blast"] = 1;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_blastVal"] = 1;
-  setAttrs(newRowAttrs);
-  <!-- Astartes Bolt Pistol -->
-  newRowId = generateRowID();
-  newRowAttrs = {};
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolt Pistol";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Pistol";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "30"
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "2";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "14";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "14";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
-  setAttrs(newRowAttrs);
-});
+  <!-- Standard Issue Equipment -->
+  on('clicked:addEquipmentStd', function(){
+    <!-- Astartes Combat Knife-->
+    var newRowId = generateRowID();
+    var newRowAttrs = {};
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponname"] = "Astartes Combat Knife";
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponclass"] = "Melee";
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapondamage"] = "1d10";
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapontype"] = "Rending";
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponpen"] = 2;
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_qualityregular"] = 1;
+    setAttrs(newRowAttrs);
+    <!-- Astartes frag grenade -->
+    newRowId = generateRowID();
+    newRowAttrs = {};
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Frag Grenade";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Thrown";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "SB*3"
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "2d10";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 0;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "3";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "3";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_blast"] = 1;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_blastVal"] = 5;
+    setAttrs(newRowAttrs);
+    <!-- Astartes krak grenade -->
+    newRowId = generateRowID();
+    newRowAttrs = {};
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Krak Grenade";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Thrown";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "SB*3"
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "3d10+4";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 10;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "3";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "3";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_blast"] = 1;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_blastVal"] = 1;
+    setAttrs(newRowAttrs);
+    <!-- Astartes Bolt Pistol -->
+    newRowId = generateRowID();
+    newRowAttrs = {};
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolt Pistol";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Pistol";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "30"
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "2";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "14";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "14";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+    setAttrs(newRowAttrs);
+  });
 
-<!-- Apothecary Standard Equipment -->
-on('clicked:addEquipmentApo', function(){
-  <!-- Astartes Bolter -->
-  newRowId = generateRowID();
-  newRowAttrs = {};
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
-  setAttrs(newRowAttrs);
-});
+  <!-- Apothecary Standard Equipment -->
+  on('clicked:addEquipmentApo', function(){
+    <!-- Astartes Bolter -->
+    newRowId = generateRowID();
+    newRowAttrs = {};
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+    setAttrs(newRowAttrs);
+  });
 
-<!-- Assault Marine Standard Equipment -->
-on('clicked:addEquipmentAslt', function(){
-  <!-- Astartes Chainsword-->
-  var newRowId = generateRowID();
-  var newRowAttrs = {};
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponname"] = "Astartes Chainsword";
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponclass"] = "Melee";
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapondamage"] = "1d10+3";
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapontype"] = "Rending";
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponpen"] = 3;
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_balanced"] = 1;
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_tearing"] = 1;
-  newRowAttrs["repeating_meleeweapons_" + newRowId + "_qualityregular"] = 1;
-  setAttrs(newRowAttrs);
-});
+  <!-- Assault Marine Standard Equipment -->
+  on('clicked:addEquipmentAslt', function(){
+    <!-- Astartes Chainsword-->
+    var newRowId = generateRowID();
+    var newRowAttrs = {};
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponname"] = "Astartes Chainsword";
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponclass"] = "Melee";
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapondamage"] = "1d10+3";
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweapontype"] = "Rending";
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_meleeweaponpen"] = 3;
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_balanced"] = 1;
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_tearing"] = 1;
+    newRowAttrs["repeating_meleeweapons_" + newRowId + "_qualityregular"] = 1;
+    setAttrs(newRowAttrs);
+  });
 
-<!-- Devastator Marine Standard Equipment -->
-on('clicked:addEquipmentDev', function(){
-  <!-- Astartes Heavy Bolter -->
-  newRowId = generateRowID();
-  newRowAttrs = {};
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Heavy Bolter";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Heavy";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "150"
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+12";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 5;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "-";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "-";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponfull"] = "6";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "250";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "250";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Backpack Ammo Supply";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
-  setAttrs(newRowAttrs);
-});
+  <!-- Devastator Marine Standard Equipment -->
+  on('clicked:addEquipmentDev', function(){
+    <!-- Astartes Heavy Bolter -->
+    newRowId = generateRowID();
+    newRowAttrs = {};
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Heavy Bolter";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Heavy";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "150"
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+12";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 5;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "-";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "-";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponfull"] = "6";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "250";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "250";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Backpack Ammo Supply";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+    setAttrs(newRowAttrs);
+  });
 
-<!-- Librarian Standard Equipment -->
-on('clicked:addEquipmentLib', function(){
-  <!-- Astartes Bolter -->
-  newRowId = generateRowID();
-  newRowAttrs = {};
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
-  setAttrs(newRowAttrs);
-});
+  <!-- Librarian Standard Equipment -->
+  on('clicked:addEquipmentLib', function(){
+    <!-- Astartes Bolter -->
+    newRowId = generateRowID();
+    newRowAttrs = {};
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+    setAttrs(newRowAttrs);
+  });
 
-<!-- Tactical Marine Standard Equipment -->
-on('clicked:addEquipmentTac', function(){
-  <!-- Astartes Bolter -->
-  newRowId = generateRowID();
-  newRowAttrs = {};
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
-  setAttrs(newRowAttrs);
-});
+  <!-- Tactical Marine Standard Equipment -->
+  on('clicked:addEquipmentTac', function(){
+    <!-- Astartes Bolter -->
+    newRowId = generateRowID();
+    newRowAttrs = {};
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+    setAttrs(newRowAttrs);
+  });
 
-<!-- Techmarine Standard Equipment -->
-on('clicked:addEquipmentTech', function(){
-  <!-- Astartes Bolter -->
-  newRowId = generateRowID();
-  newRowAttrs = {};
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
-  newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
-  setAttrs(newRowAttrs);
-});
+  <!-- Techmarine Standard Equipment -->
+  on('clicked:addEquipmentTech', function(){
+    <!-- Astartes Bolter -->
+    newRowId = generateRowID();
+    newRowAttrs = {};
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponname"] = "Astartes Bolter";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclass"] = "Basic";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponrange"] = "100"
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapondamage"] = "1d10+9";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweapontype"] = "Explosive";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponpen"] = 4;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsingle"] = "S";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponsemi"] = "3";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip"] = "28";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponclip_max"] = "28";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponreload"] = "Full";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_rangedweaponmods"] = "Fire Selector";
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_tearing"] = 1;
+    newRowAttrs["repeating_rangedweapons_" + newRowId + "_qualityregular"] = 1;
+    setAttrs(newRowAttrs);
+  });
 </script>
 <rolltemplate class="sheet-rolltemplate-custom">
   <div class="sheet-header"></div>
