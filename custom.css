@@ -452,7 +452,7 @@
     font-weight: bold;
     font-family: inherit;
     vertical-align: middle;
-    text-align:top;
+    text-align: top;
     width: 99%; /* 99% Original*/
     cursor: pointer;
     background: none;
@@ -478,7 +478,7 @@
     white-space: normal;
     width: 100%;
     margin:auto;
-    text-align:middle;
+    text-align: middle;
     font-family: inherit;
 }
 
@@ -692,6 +692,192 @@ button.damage-button {
     position: absolute; /* removes the input from the DOM flow, allowing the span to exist in the same space */
     width: 100%; /* Inputs match the width of the parent element as defined by the spans */
     font-size: 1em;
+}
+
+.charsheet input[type="checkbox"].icon {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-block;
+    height: 15px;
+    font-size: 14px;
+    font-family: "pictos";
+    color: black;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+}
+.charsheet input[type="checkbox"].icon:before {
+    content: "{";
+    box-sizing: border-box;
+}
+.charsheet input[type="checkbox"].icon:checked:before {
+    content: "}";
+}
+.charsheet input[type="checkbox"].icon:focus:before {
+    outline: 0;
+}
+.charsheet input[type="checkbox"].icon:focus {
+    outline: 0;
+}
+
+/*the checkbox that allows to hide divs with hbody*/
+.charsheet input.arrow {
+    position: relative;
+}
+.charsheet input.arrow:checked ~ div.hbody {
+    display: none;
+}
+/*the checkbox that allows to Show divs with hbody2*/
+.charsheet input.arrow2 {
+    position: relative;
+}
+.charsheet input.arrow2 ~ div.hbody2 {
+    display: none;
+}
+.charsheet input.arrow2:checked ~ div.hbody2 {
+    display: block;
+}
+
+/*CSS Grid Cols and Rows architecture*/{}
+.charsheet .grid2 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 7px;
+    justify-content: center;
+}
+.charsheet .leftbox {
+    grid-column-start: 1;
+}
+.charsheet .rightbox {
+    grid-column-start: 2;
+}
+
+/* grid for player info */
+.charsheet .grid5 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 5fr 5fr 5fr 2fr;
+    column-gap: 6px;
+    justify-content: center;
+}
+.charsheet .gridbox2 {
+    grid-column-start: 2 / -2;
+}
+.charsheet .gridbox3 {
+    grid-column-start: 3 / -3;
+}
+.charsheet .gridbox4 {
+    grid-column-start: 4 / -4;
+}
+
+/* grid for nav powers */
+.charsheet .gridnav {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5fr 1fr 32px 32px 32px 32px 32px;
+    gap: 0;
+}
+
+/*grid with 5 blocks for character generation*/
+.charsheet .grid5 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 32px 32px 32px 32px;
+    gap: 0;
+}
+
+/*grid with 9 blocks used in npc, custom skill, trade and advance skills*/
+.charsheet .grid9 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3fr 1fr 30px 30px 30px 30px 30px 30px 30px;
+    gap: 0;
+}
+
+/* grid with 8 blocks used in skill groups*/
+.charsheet .grid8 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 30px 30px 30px 30px 30px 30px 30px;
+    gap: 0;
+}
+
+/* grid with 8 blocks used in basic skills*/
+.charsheet .grid8b {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3fr 1fr 30px 30px 30px 30px 30px 30px;
+    gap: 0;
+}
+
+/* grid with 9 blocks used in intimidate skill*/
+.charsheet .gridinputbasic9 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 9fr 2fr 1fr 30px 30px 30px 30px 30px 30px;
+    gap: 0;
+}
+
+/*element styling to fit the grid*/
+.charsheet .label2 {
+    font-size: 9px !important;
+    margin: 0 !important;
+    text-align: center !important;
+}
+.charsheet .label1 {
+    margin: 0 !important;
+    text-align: center !important;
+}
+.charsheet .label1r {
+    margin: 0 !important;
+    padding-right: 5px !important;
+    text-align: right !important;
+}
+.charsheet div.cbitem {
+    display: flex !important;
+    border: 1px solid black !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.charsheet span.gridspan {
+    font-size: 15px !important;
+    font-weight: normal !important;
+    text-align: center !important;
+    margin: 0 !important;
+    border: 1px solid black !important;
+    cursor: help !important;
+}
+/*element styling to fit intimidate*/
+.charsheet span.gridspansp {
+    font-size: 15px !important;
+    font-weight: normal !important;
+    margin: 0 !important;
+    border-top: 1px solid black !important;
+    border-bottom: 1px solid black !important;
+    border-right: 1px solid black !important;
+    border-left: none !important;
+    cursor: help !important;
+}
+.charsheet select.subitem2 {
+    border-radius: 0 !important;
+    margin: 0 !important;
+    border-top: 1px solid black !important;
+    border-bottom: 1px solid black !important;
+    border-right: none !important;
+    border-left: 1px solid black !important;
+    color: black !important;
+    font-size: 15px !important;
+}
+
+/* This rule is needed to allow inputs inside buttons */
+.charsheet button input {
+    pointer-events: none;
+}
+
+.charsheet input[value="40"] .roll1 {
+    border-color: red;
 }
 
 /* ROLL TEMPLATE STYLE CUSTOM based on "better default template"*/
