@@ -1189,7 +1189,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_WS" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Weapon Skill**}} [[(@{WeaponSkill}+?{Modifier|0}+@{advanceWS}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Weapon Skill**}} {{dosdof=[[(((  ([[(@{WeaponSkill}+?{Modifier|0}+@{advanceWS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Weapon Skill (WS)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1216,7 +1216,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_BS" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Ballistic Skill**}} [[(@{BallisticSkill}+?{Modifier|0}+@{advanceBS}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Ballistic Skill**}} {{dosdof=[[(((  ([[(@{BallisticSkill}+?{Modifier|0}+@{advanceBS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Ballistic Skill (BS)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1243,7 +1243,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_S" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Strength**}} [[(@{Strength}+?{Modifier|0}+@{advanceS}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Strength**}} {{dosdof=[[(((  ([[(@{Strength}+?{Modifier|0}+@{advanceS})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Strength (S)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1270,7 +1270,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_T" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Toughness**}} [[(@{Toughness}+?{Modifier|0}+@{advanceT}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Toughness**}} {{dosdof=[[(((  ([[(@{Toughness}+?{Modifier|0}+@{advanceT})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Toughness (T)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1297,7 +1297,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_Ag" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Agility**}} [[(@{Agility}+?{Modifier|0}+@{advanceAg}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Agility**}} {{dosdof=[[(((  ([[(@{Agility}+?{Modifier|0}+@{advanceAG})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Agility<br>(Ag)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1327,7 +1327,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_Int" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Intelligence**}} [[(@{Intelligence}+?{Modifier|0}+@{advanceInt}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Intelligence**}} {{dosdof=[[(((  ([[(@{Intelligence}+?{Modifier|0}+@{advanceInt})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Intelligence (Int)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1355,7 +1355,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_Per" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Perception**}} [[(@{Perception}+?{Modifier|0}+@{advancePer}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Perception**}} {{dosdof=[[(((  ([[(@{Perception}+?{Modifier|0}+@{advancePer})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Perception (Per)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1384,7 +1384,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_WP" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Willpower**}} [[(@{Willpower}+?{Modifier|0}+@{advanceWP}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Willpower**}} {{dosdof=[[(((  ([[(@{Willpower}+?{Modifier|0}+@{advanceWP})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Willpower (WP)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1413,7 +1413,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_Fel" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Fellowship**}} [[(@{Fellowship}+?{Modifier|0}+@{advanceFel}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Fellowship**}} {{dosdof=[[(((  ([[(@{Fellowship}+?{Modifier|0}+@{advanceFel})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Fellowship (Fel)</label></button>
                 </div>
                 <div class="sheet-col">
@@ -1441,7 +1441,7 @@
               <div class="sheet-2colrow">
                 <div class="sheet-col">
                   <button name="roll_Inf" type="roll"
-                          value="&{template:custom} {{name=**@{character_name} Test Influence**}} [[(@{Influence}+?{Modifier|0}+@{advanceInf}-1d100)/10]] degree(s) of success!">
+                          value="&{template:custom} {{name=**@{character_name} Test Influence**}} {{dosdof=[[(((  ([[(@{Influence}+?{Modifier|0}+@{advanceInf})]] - [[1d100cs1cf100]]) * 100 % 999 % 100  )))]] **Degrees**}} {{testtarget= $[[0]] }} {{d100= $[[1]] }} {{testresult= }}">
                     <label>Influence (Inf)</label></button>
                 </div>
                 <div class="sheet-col">
